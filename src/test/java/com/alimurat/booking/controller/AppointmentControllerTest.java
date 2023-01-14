@@ -186,7 +186,7 @@ class AppointmentControllerTest {
     @Test
     void itShouldGetAllAppointments() throws Exception {
 
-        List<Appointment> appointmentList = appointmentService.getAppointments();
+        List<AppointmentResponse> appointmentList = appointmentService.getAppointments();
 
         int size = appointmentList.size();
 
