@@ -9,6 +9,9 @@ jobs:
       - run:
           name: Clean Build
           command: ./mvnw clean install
+      - run:
+          name: Run Tests
+          command: mvn test
 workflows:
   build-workflow:
     jobs:
