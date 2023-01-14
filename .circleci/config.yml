@@ -11,7 +11,7 @@ jobs:
           command: ./mvnw clean install
       - run:
           name: Run Tests
-          command: mvn test
+          command: ./mvnw test
 workflows:
   build-workflow:
     jobs:
