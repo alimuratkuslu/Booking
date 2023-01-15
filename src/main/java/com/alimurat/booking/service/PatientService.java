@@ -5,13 +5,10 @@ import com.alimurat.booking.dto.PatientResponse;
 import com.alimurat.booking.dto.SavePatientRequest;
 import com.alimurat.booking.model.Patient;
 import com.alimurat.booking.repository.PatientRepository;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 @Service
 public class PatientService {

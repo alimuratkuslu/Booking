@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import AppNavbar from '../AppNavbar';
+import DeactivatePatient from './DeactivatePatient';
+import ActivatePatient from './ActivatePatient';
 
 class PatientEdit extends Component {
 
@@ -81,6 +83,13 @@ class PatientEdit extends Component {
                         <Input type="text" name="birthDate" id="birthDate" value={item.birthDate || ''}
                                onChange={this.handleChange} autoComplete="name"/>
                     </FormGroup>
+                    <br/>
+                    <FormGroup>
+                        <Label for="status">Status</Label>
+                        <DeactivatePatient patientId={item.id} />
+                        <ActivatePatient patientId={item.id} />
+                    </FormGroup>
+                    <br/>
                     <FormGroup>
                         <Button color="primary" type="submit">Save</Button>{' '}
                         <Button color="secondary" tag={Link} to="/patient">Cancel</Button>
