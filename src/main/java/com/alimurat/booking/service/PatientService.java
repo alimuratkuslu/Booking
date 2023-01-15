@@ -31,9 +31,21 @@ public class PatientService {
         return patients;
     }
 
-    public Optional<Patient> getPatientById(Integer id){
+    public PatientResponse getPatientById(Integer id){
         if(doesPatientExist(id)){
-            return patientRepository.findById(id);
+            Patient patient = patientRepository.findById(id).orElseThrow(RuntimeException::new);
+
+            return PatientResponse.builder()
+                    .id(patient.getId())
+                    .name(patient.getName())
+                    .surname(patient.getSurname())
+                    .email(patient.getEmail())
+                    .birthDate(patient.getBirthDate())
+                    .password(patient.getPassword())
+                    .isActive(patient.getIsActive())
+                    .doctor(patient.getDoctor())
+                    .appointments(patient.getAppointments())
+                    .build();
         }
         else{
             throw new RuntimeException("Patient does not exist");

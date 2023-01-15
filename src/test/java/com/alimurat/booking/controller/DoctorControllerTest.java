@@ -90,7 +90,7 @@ class DoctorControllerTest {
     }
 
     @Test
-    void itShouldDeleteCustomerWithId100() throws Exception{
+    void itShouldDeleteDoctorWithId100() throws Exception{
         Integer id = 100;
 
         SaveDoctorRequest request = SaveDoctorRequest.builder()

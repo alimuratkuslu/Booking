@@ -3,6 +3,7 @@ package com.alimurat.booking.controller;
 import com.alimurat.booking.dto.DoctorOfPatientDto;
 import com.alimurat.booking.dto.PatientResponse;
 import com.alimurat.booking.dto.SavePatientRequest;
+import com.alimurat.booking.model.Patient;
 import com.alimurat.booking.service.PatientService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,9 +16,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.mockito.Mockito.*;
+import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -70,6 +73,19 @@ class PatientControllerTest {
     }
 
     @Test
+    void itShouldGetAllPatients() throws Exception {
+
+        List<Patient> patientList = patientService.getPatients();
+
+        int size = patientList.size();
+
+        when(patientService.getPatients()).thenReturn(patientList);
+
+        mockMvc.perform(get("/v1/patient"))
+                .andExpect(jsonPath("$", hasSize(size)));
+    }
+
+    @Test
     void shouldShowDoctorOfPatient() throws Exception {
         Integer id = 1;
 
@@ -91,29 +107,20 @@ class PatientControllerTest {
                 .andExpect(jsonPath("$.name").value(dof.getName()));
     }
 
-    /*
     @Test
-    void shouldReturnPatientById() throws Exception{
+    void itShouldGetPatientWithId1() throws Exception {
         Integer id = 1;
 
-        Optional<Patient> patient = Optional.ofNullable(Patient.builder()
-                        .id(null)
-                        .name("testname")
-                        .surname("testsurname")
-                        .email("testemail")
-                        .password("testpassword")
-                        .isActive(true)
-                        .doctor(null)
-                        .appointments(null)
-                .build());
+        PatientResponse response = PatientResponse.builder()
+                .id(1)
+                .build();
 
-        when(patientService.getPatientById(id)).thenReturn(patient);
+        when(patientService.getPatientById(id)).thenReturn(response);
 
         mockMvc.perform(get("/v1/patient/{id}", 1))
                 .andDo(print())
-                .andExpect(jsonPath("$.name").value(patient.map(Patient::getName)));
+                .andExpect(jsonPath("$.id").value(id));
     }
-     */
 
     @Test
     void shouldUpdatePatient() throws Exception {
@@ -175,6 +182,54 @@ class PatientControllerTest {
 
         mockMvc.perform(patch("/v1/patient/{id}", 125))
                 .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void itShouldChangeStatusOfPatientToTrue() throws Exception {
+        SavePatientRequest request = SavePatientRequest.builder()
+                .name("testname")
+                .surname("testsurname")
+                .email("testemail")
+                .birthDate(LocalDate.now())
+                .password("testpassword")
+                .build();
+
+        PatientResponse response = PatientResponse.builder()
+                .id(125)
+                .name("testname")
+                .surname("testsurname")
+                .email("testemail")
+                .birthDate(LocalDate.now())
+                .password("testpassword")
+                .isActive(false)
+                .doctor(null)
+                .appointments(null)
+                .build();
+
+        when(patientService.savePatient(request)).thenReturn(response);
+        patientService.activatePatient(response.getId());
+
+        mockMvc.perform(patch("/v1/patient/activate/{id}", 125))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void itShouldDeletePatientWithId100() throws Exception {
+        Integer id = 100;
+
+        SavePatientRequest request = SavePatientRequest.builder()
+                .name("patientname")
+                .build();
+
+        PatientResponse response = PatientResponse.builder()
+                .id(100)
+                .build();
+
+        patientService.savePatient(request);
+
+        mockMvc.perform(delete("/v1/patient/{id}", 100))
                 .andExpect(status().isOk());
     }
 

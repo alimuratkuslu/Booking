@@ -29,7 +29,7 @@ public class PatientController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Patient>> getPatientById(@PathVariable Integer id){
+    public ResponseEntity<PatientResponse> getPatientById(@PathVariable Integer id){
         return ResponseEntity.ok(patientService.getPatientById(id));
     }
 
