@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
@@ -8,7 +9,7 @@ import PatientDropdown from '../Patients/PatientDropdown';
 class DoctorEdit extends Component {
 
     emptyItem = {
-        dateTime: '',
+        dateTime: moment('', "yyyy-MM-DD HH:mm").toDate(),
         duration: '',
         appointmentDesc: '',
         doctorId: '',
@@ -67,7 +68,7 @@ class DoctorEdit extends Component {
                     <FormGroup>
                         <Label for="name">Date and Time</Label>
                         <Input type="text" name="dateTime" id="dateTime" value={item.dateTime || ''}
-                               onChange={this.handleChange} autoComplete="name"/>
+                               onChange={this.handleChange} autoComplete="name" placeholder='yyyy-mm-dd hh:mm'/>
                     </FormGroup>
                     <FormGroup>
                         <Label for="name">Duration</Label>

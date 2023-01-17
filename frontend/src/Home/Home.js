@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import '../App.js';
 import AppNavbar from '../AppNavbar.js';
 import './Home.css';

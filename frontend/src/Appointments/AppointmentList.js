@@ -4,6 +4,7 @@ import AppNavbar from '../AppNavbar';
 import { Link } from 'react-router-dom';
 import PatientDropdown from '../Patients/PatientDropdown';
 import DoctorDropdown from '../Doctors/DoctorDropdown';
+import moment from 'moment';
 
 class AppointmentList extends Component {
     
@@ -41,7 +42,7 @@ class AppointmentList extends Component {
     
         const appointmentList = appointments.map(appointment => {
             return <tr key={appointment.id}>
-                <td style={{whiteSpace: 'nowrap'}}>{appointment.dateTime}</td>
+                <td style={{whiteSpace: 'nowrap'}}>{moment(appointment.dateTime).format("yyyy-MM-DD HH:mm")}</td>
                 <td>{appointment.duration}</td>
                 <td>{appointment.appointmentDesc}</td>
                 <td>{appointment.doctor.name} {appointment.doctor.surname}</td>

@@ -43,6 +43,16 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentService.editAppointment(id, request));
     }
 
+    @GetMapping("/doctor/{id}")
+    public ResponseEntity<List<AppointmentResponse>> getAppointmentByDoctorId(@PathVariable Integer id){
+        return ResponseEntity.ok(appointmentService.getByDoctorId(id));
+    }
+
+    @GetMapping("/patient/{id}")
+    public ResponseEntity<List<AppointmentResponse>> getAppointmentByPatientId(@PathVariable Integer id){
+        return ResponseEntity.ok(appointmentService.getByPatientId(id));
+    }
+
     @DeleteMapping("/{id}")
     public void deleteAppointment(@PathVariable Integer id){
         appointmentService.deleteAppointmentById(id);

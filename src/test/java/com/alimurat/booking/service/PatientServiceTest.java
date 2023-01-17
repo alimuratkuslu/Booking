@@ -1,17 +1,13 @@
 package com.alimurat.booking.service;
 
 import com.alimurat.booking.TestSupport;
-import com.alimurat.booking.dto.PatientResponse;
-import com.alimurat.booking.dto.SavePatientRequest;
 import com.alimurat.booking.model.Patient;
 import com.alimurat.booking.repository.PatientRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -26,7 +22,7 @@ class PatientServiceTest extends TestSupport {
     public void setUp(){
         repository = Mockito.mock(PatientRepository.class);
 
-        service = new PatientService(repository);
+        //service = new PatientService(repository, passwordEncoder);
     }
 
     @Test

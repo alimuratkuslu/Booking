@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -21,7 +22,7 @@ public class Appointment {
     @GeneratedValue
     private Integer id;
 
-    //@JsonFormat(pattern="yyyy-MM-ddHH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-DD HH:mm")
     private LocalDateTime dateTime;
 
     private Integer duration;

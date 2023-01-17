@@ -1,5 +1,6 @@
 package com.alimurat.booking.controller;
 
+import com.alimurat.booking.dto.AppointmentResponse;
 import com.alimurat.booking.dto.DoctorOfPatientDto;
 import com.alimurat.booking.dto.PatientResponse;
 import com.alimurat.booking.dto.SavePatientRequest;

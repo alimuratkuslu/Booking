@@ -1,6 +1,7 @@
 package com.alimurat.booking.service;
 
 import com.alimurat.booking.dto.DoctorResponse;
+import com.alimurat.booking.dto.PatientResponse;
 import com.alimurat.booking.dto.SaveDoctorRequest;
 import com.alimurat.booking.model.Doctor;
 import com.alimurat.booking.model.Patient;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DoctorService {
@@ -99,6 +101,24 @@ public class DoctorService {
         List<Patient> patients = doctor.getPatients();
         patients.add(patient);
         doctorRepository.save(doctor);
+    }
+
+    public List<PatientResponse> showPatientsOfDoctor(Integer id){
+        Doctor doctor = doctorRepository.findById(id).orElseThrow(RuntimeException::new);
+
+        List<Patient> patients = doctor.getPatients();
+
+        return patients.stream().map(model ->
+                PatientResponse.builder()
+                        .id(model.getId())
+                        .name(model.getName())
+                        .surname(model.getSurname())
+                        .email(model.getEmail())
+                        .birthDate(model.getBirthDate())
+                        .password(model.getPassword())
+                        .isActive(model.getIsActive())
+                        .build()).collect(Collectors.toList());
+
     }
 
     public void deleteDoctorById(Integer id){

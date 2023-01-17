@@ -1,12 +1,13 @@
 package com.alimurat.booking;
-
 import com.alimurat.booking.model.Doctor;
 import com.alimurat.booking.model.Patient;
+import com.alimurat.booking.model.Role;
 import com.alimurat.booking.repository.DoctorRepository;
 import com.alimurat.booking.repository.PatientRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 
@@ -17,9 +18,12 @@ public class BookingApplication implements CommandLineRunner {
 
 	private final DoctorRepository doctorRepository;
 
-	public BookingApplication(PatientRepository patientRepository, DoctorRepository doctorRepository) {
+	private final PasswordEncoder passwordEncoder;
+
+	public BookingApplication(PatientRepository patientRepository, DoctorRepository doctorRepository, PasswordEncoder passwordEncoder) {
 		this.patientRepository = patientRepository;
 		this.doctorRepository = doctorRepository;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	public static void main(String[] args) {
@@ -35,6 +39,8 @@ public class BookingApplication implements CommandLineRunner {
 						.surname("Kuşlu")
 						.email("ali@gmail.com")
 						.birthDate(LocalDate.now())
+						.password(passwordEncoder.encode("alipassword"))
+						.role(Role.USER)
 						.isActive(true)
 				.build());
 
@@ -44,6 +50,8 @@ public class BookingApplication implements CommandLineRunner {
 				.surname("Atan")
 				.email("sukran@gmail.com")
 				.birthDate(LocalDate.now())
+				.password(passwordEncoder.encode("sukranpassword"))
+						.role(Role.ADMIN)
 				.isActive(true)
 				.build());
 

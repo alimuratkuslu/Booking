@@ -12,6 +12,7 @@ import AppointmentList from './Appointments/AppointmentList';
 import AboutUs from './About/AboutUs';
 import Contact from './Contact/Contact';
 import Profile from './Profile/Profile';
+import LoginPage from './Login/LoginPage';
 
 class App extends Component {
 
@@ -19,16 +20,17 @@ class App extends Component {
     return(
       <Router>
         <Switch>
-          <Route path='/' exact={true} component={Home} />
-          <Route path='/patient' exact={true} component={PatientList} />
-          <Route path='/patient/:id' component={PatientEdit} />
-          <Route path='/doctor' exact={true} component={DoctorList} />
-          <Route path='/doctor/:id' component={DoctorEdit} />
-          <Route path='/appointment' exact={true} component={AppointmentList} />
-          <Route path='/appointment/:id' component={AppointmentEdit} />
-          <Route path='/about' component={AboutUs} />
-          <Route path='/contact' component={Contact} />
-          <Route path='/profile' component={Profile} />
+          <Route path='/login' component={LoginPage} />
+          <Route exact path='/' component={Home} />
+          <Route exact path='/patient' component={PatientList} />
+          <Route exact path='/patient/:id' component={PatientEdit} />
+          <Route exact path='/doctor' component={DoctorList} />
+          <Route exact path='/doctor/:id' component={DoctorEdit} />
+          <Route exact path='/appointment' component={AppointmentList} />
+          <Route exact path='/appointment/:id' component={AppointmentEdit} />
+          <Route exact path='/about' component={AboutUs} />
+          <Route exact path='/contact' component={Contact} />
+          <Route exact path='/profile' component={Profile} />
         </Switch>
       </Router>
     )

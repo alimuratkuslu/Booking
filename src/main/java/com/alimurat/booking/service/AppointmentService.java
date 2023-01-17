@@ -59,6 +59,13 @@ public class AppointmentService {
         Doctor doctor = doctorRepository.findById(request.getDoctorId()).orElseThrow(RuntimeException::new);
         Patient patient = patientRepository.findById(request.getPatientId()).orElseThrow(RuntimeException::new);
 
+        List<Patient> doctorsPatients = doctor.getPatients();
+        doctorsPatients.add(patient);
+        doctorRepository.save(doctor);
+
+        patient.setDoctor(doctor);
+        patientRepository.save(patient);
+
         Appointment appointment = Appointment.builder()
                 .dateTime(request.getDateTime())
                 .duration(request.getDuration())
@@ -98,6 +105,36 @@ public class AppointmentService {
                 .doctor(currentAppointment.getDoctor())
                 .patient(currentAppointment.getPatient())
                 .build();
+    }
+
+    public List<AppointmentResponse> getByDoctorId(Integer doctorId){
+        List<Appointment> appointments = appointmentRepository.findByDoctorId(doctorId);
+
+        return appointments.stream().map(model ->
+                AppointmentResponse.builder()
+                        .id(model.getDuration())
+                        .dateTime(model.getDateTime())
+                        .duration(model.getDuration())
+                        .appointmentDesc(model.getAppointmentDesc())
+                        .doctor(model.getDoctor())
+                        .patient(model.getPatient())
+                        .build()
+        ).collect(Collectors.toList());
+    }
+
+    public List<AppointmentResponse> getByPatientId(Integer patientId){
+        List<Appointment> appointments = appointmentRepository.findByPatientId(patientId);
+
+        return appointments.stream().map(model ->
+                AppointmentResponse.builder()
+                        .id(model.getDuration())
+                        .dateTime(model.getDateTime())
+                        .duration(model.getDuration())
+                        .appointmentDesc(model.getAppointmentDesc())
+                        .doctor(model.getDoctor())
+                        .patient(model.getPatient())
+                        .build()
+        ).collect(Collectors.toList());
     }
 
     public void deleteAppointmentById(Integer id){

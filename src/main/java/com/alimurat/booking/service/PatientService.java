@@ -5,6 +5,7 @@ import com.alimurat.booking.dto.PatientResponse;
 import com.alimurat.booking.dto.SavePatientRequest;
 import com.alimurat.booking.model.Patient;
 import com.alimurat.booking.repository.PatientRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,12 +15,14 @@ import java.util.List;
 public class PatientService {
 
     private final PatientRepository patientRepository;
+    private final PasswordEncoder passwordEncoder;
 
     //private final static Logger logger = (Logger) LoggerFactory.getLogger(PatientService.class);
 
 
-    public PatientService(PatientRepository patientRepository) {
+    public PatientService(PatientRepository patientRepository, PasswordEncoder passwordEncoder) {
         this.patientRepository = patientRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<Patient> getPatients(){
@@ -55,10 +58,10 @@ public class PatientService {
                 .surname(request.getSurname())
                         .email(request.getEmail())
                         .birthDate(request.getBirthDate())
-                        .password(request.getPassword())
+                        .password(passwordEncoder.encode(request.getPassword()))
                         .isActive(true)
                         .build();
-
+        //passwordEncoder.encode(request.getPassword())
         final Patient fromDbPatient = patientRepository.save(patient);
 
         return PatientResponse.builder()
@@ -117,7 +120,6 @@ public class PatientService {
                 .doctorField(currentPatient.getDoctor().getField())
                 .build();
     }
-
     public void deactivatePatient(Integer id){
         changePatientStatus(id, false);
     }
@@ -140,6 +142,10 @@ public class PatientService {
 
         currentPatient.setIsActive(isActive);
         patientRepository.save(currentPatient);
+    }
+
+    public Patient getPatientByEmail(String email){
+        return patientRepository.findByEmail(email);
     }
 
     private boolean doesPatientExist(Integer id){

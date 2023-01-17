@@ -42,6 +42,9 @@ public class Patient {
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<Appointment> appointments;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     public Patient(Integer i, String s, String s1, String s2, LocalDate now, Boolean nextBoolean) {
         i = id;
         s = name;

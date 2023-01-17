@@ -2,8 +2,10 @@ package com.alimurat.booking.controller;
 
 import com.alimurat.booking.dto.AddPatientDto;
 import com.alimurat.booking.dto.DoctorResponse;
+import com.alimurat.booking.dto.PatientResponse;
 import com.alimurat.booking.dto.SaveDoctorRequest;
 import com.alimurat.booking.model.Doctor;
+import com.alimurat.booking.model.Patient;
 import com.alimurat.booking.service.DoctorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +38,11 @@ public class DoctorController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(doctorService.saveDoctor(request));
+    }
+
+    @GetMapping("/patients/{id}")
+    public ResponseEntity<List<PatientResponse>> showPatientsOfDoctor(@PathVariable Integer id){
+        return ResponseEntity.ok(doctorService.showPatientsOfDoctor(id));
     }
 
     @PutMapping("/{id}")
