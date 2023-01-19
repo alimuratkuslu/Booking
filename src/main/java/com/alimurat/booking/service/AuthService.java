@@ -1,6 +1,5 @@
 package com.alimurat.booking.service;
 
-import com.alimurat.booking.dto.DoctorTokenResponse;
 import com.alimurat.booking.dto.LoginForm;
 import com.alimurat.booking.dto.TokenResponseDto;
 import com.alimurat.booking.utils.TokenGenerator;
