@@ -13,6 +13,9 @@ import AboutUs from './About/AboutUs';
 import Contact from './Contact/Contact';
 import Profile from './Profile/Profile';
 import LoginPage from './Login/LoginPage';
+import Logout from './Login/Logout';
+import PrivateRoute from './PrivateRoute';
+import { Redirect } from 'react-router-dom';
 
 class App extends Component {
 
@@ -21,16 +24,18 @@ class App extends Component {
       <Router>
         <Switch>
           <Route path='/login' component={LoginPage} />
-          <Route exact path='/' component={Home} />
-          <Route exact path='/patient' component={PatientList} />
-          <Route exact path='/patient/:id' component={PatientEdit} />
-          <Route exact path='/doctor' component={DoctorList} />
-          <Route exact path='/doctor/:id' component={DoctorEdit} />
-          <Route exact path='/appointment' component={AppointmentList} />
-          <Route exact path='/appointment/:id' component={AppointmentEdit} />
-          <Route exact path='/about' component={AboutUs} />
-          <Route exact path='/contact' component={Contact} />
-          <Route exact path='/profile' component={Profile} />
+          <PrivateRoute exact path='/' component={Home} />
+          <PrivateRoute exact path='/patient' component={PatientList} />
+          <PrivateRoute exact path='/patient/:id' component={PatientEdit} />
+          <PrivateRoute exact path='/doctor' component={DoctorList} />
+          <PrivateRoute exact path='/doctor/:id' component={DoctorEdit} />
+          <PrivateRoute exact path='/appointment' component={AppointmentList} />
+          <PrivateRoute exact path='/appointment/:id' component={AppointmentEdit} />
+          <PrivateRoute exact path='/about' component={AboutUs} />
+          <PrivateRoute exact path='/contact' component={Contact} />
+          <PrivateRoute exact path='/profile' component={Profile} />
+          <Route exact path='/logout' component={Logout} />
+          <Redirect to='/login' />
         </Switch>
       </Router>
     )

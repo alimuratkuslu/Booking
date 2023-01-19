@@ -59,5 +59,9 @@ public class DoctorController {
     public void addPatientToDoctor(@RequestBody AddPatientDto addPatientDto){
         doctorService.addPatientToDoctor(addPatientDto.getDoctorId(), addPatientDto.getPatientId());
     }
+    @GetMapping("/details/{email}")
+    public ResponseEntity<Doctor> getDoctorByEmail(@PathVariable String email){
+        return ResponseEntity.ok(doctorService.getDoctorByEmail(email));
+    }
 
 }

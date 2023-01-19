@@ -38,9 +38,9 @@ public class BookingApplication implements CommandLineRunner {
 						.name("Ali Murat")
 						.surname("Kuşlu")
 						.email("ali@gmail.com")
-						.birthDate(LocalDate.now())
+						.birthDate(LocalDate.of(2001, 01, 02))
 						.password(passwordEncoder.encode("alipassword"))
-						.role(Role.USER)
+						.role(Role.PATIENT)
 						.isActive(true)
 				.build());
 
@@ -49,9 +49,9 @@ public class BookingApplication implements CommandLineRunner {
 				.name("Şükran")
 				.surname("Atan")
 				.email("sukran@gmail.com")
-				.birthDate(LocalDate.now())
+				.birthDate(LocalDate.of(2001, 03, 07))
 				.password(passwordEncoder.encode("sukranpassword"))
-						.role(Role.ADMIN)
+						.role(Role.PATIENT)
 				.isActive(true)
 				.build());
 
@@ -61,7 +61,8 @@ public class BookingApplication implements CommandLineRunner {
 						.surname("Kuşlu")
 						.email("dogan@gmail.com")
 						.field("Diyetisyen")
-						.password("doganpassword")
+						.password(passwordEncoder.encode("doganpassword"))
+						.role(Role.DOCTOR)
 				.build());
 
 		Doctor doctor2 = doctorRepository.save(Doctor.builder()
@@ -70,7 +71,8 @@ public class BookingApplication implements CommandLineRunner {
 				.surname("Çelik")
 				.email("ege@gmail.com")
 				.field("Fizyoloji")
-				.password("egepassword")
+				.password(passwordEncoder.encode("egepassword"))
+				.role(Role.DOCTOR)
 				.build());
 
 		System.out.println(patient1);

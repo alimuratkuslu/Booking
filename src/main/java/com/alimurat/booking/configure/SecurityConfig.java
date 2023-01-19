@@ -42,10 +42,17 @@ public class SecurityConfig {
         return http
                 .csrf().disable()
                 .cors().and()
-                .authorizeRequests((auth) -> {
-                    auth.requestMatchers("/v1/doctor").hasAuthority("ADMIN");
-                })
-                .formLogin().disable()
+                .authorizeRequests().
+                    requestMatchers("/v1/login").permitAll()
+                    .anyRequest().authenticated()
+                //auth.requestMatchers("/v1/doctor").hasAuthority("ADMIN");
+                .and()
+                .formLogin()
+                    .loginPage("/v1/login").defaultSuccessUrl("/v1", true)
+                .and()
+                .logout()
+                    .logoutUrl("/v1/logout").logoutSuccessUrl("/v1/logout")
+                .and()
                 .httpBasic().disable()
                 .exceptionHandling().accessDeniedHandler(jwtAccessDeniedHandler)
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint).and()

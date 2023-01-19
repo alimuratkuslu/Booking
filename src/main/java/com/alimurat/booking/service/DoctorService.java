@@ -5,6 +5,7 @@ import com.alimurat.booking.dto.PatientResponse;
 import com.alimurat.booking.dto.SaveDoctorRequest;
 import com.alimurat.booking.model.Doctor;
 import com.alimurat.booking.model.Patient;
+import com.alimurat.booking.model.Role;
 import com.alimurat.booking.repository.DoctorRepository;
 import com.alimurat.booking.repository.PatientRepository;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,7 @@ public class DoctorService {
                 .email(request.getEmail())
                 .field(request.getField())
                 .password(request.getPassword())
+                .role(Role.DOCTOR)
                 .build();
 
         final Doctor fromDbDoctor = doctorRepository.save(doctor);
@@ -119,6 +121,11 @@ public class DoctorService {
                         .isActive(model.getIsActive())
                         .build()).collect(Collectors.toList());
 
+    }
+
+    public Doctor getDoctorByEmail(String email){
+
+        return doctorRepository.findByEmail(email);
     }
 
     public void deleteDoctorById(Integer id){

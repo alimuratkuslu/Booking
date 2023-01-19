@@ -1,5 +1,6 @@
 package com.alimurat.booking.dto;
 
+import com.alimurat.booking.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

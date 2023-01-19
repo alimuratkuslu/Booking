@@ -15,18 +15,15 @@ function LoginPage() {
         event.preventDefault();
         axios.post('/login',{ email, password })
             .then(response => {
-                /*
-                const data = response.json();
-                
-                if(data.token){
-                    localStorage.setItem('token', data.token);
-                    setToken(data.token);
-                }
-                */
-                // setIsLoading(false);
+                //console.log(response.json());
+                console.log(response.data.accessToken);
+
+                const accessToken = response.data.accessToken;
+
+                localStorage.setItem('token', accessToken);
+
+                setToken(accessToken);
                 // localStorage.setItem('isLoggedIn', JSON.stringify(true));
-                console.log(response.data);
-                // setIsLoggedIn(true);
                 history.push('/');
                 history.go('/');
             })

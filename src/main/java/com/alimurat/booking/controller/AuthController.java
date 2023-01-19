@@ -1,10 +1,10 @@
 package com.alimurat.booking.controller;
 
+import com.alimurat.booking.dto.DoctorTokenResponse;
 import com.alimurat.booking.dto.LoginForm;
 import com.alimurat.booking.dto.TokenResponseDto;
-import com.alimurat.booking.repository.PatientRepository;
 import com.alimurat.booking.service.AuthService;
-import org.springframework.http.HttpStatus;
+import com.alimurat.booking.service.DoctorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,15 +16,20 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
+    private final DoctorService doctorService;
 
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService, DoctorService doctorService) {
         this.authService = authService;
+        this.doctorService = doctorService;
     }
 
     @PostMapping("/login")
     public ResponseEntity<TokenResponseDto> login(@RequestBody LoginForm loginForm){
 
-        return ResponseEntity.ok(authService.login(loginForm));
+        if(doctorService.getDoctorByEmail(loginForm.getEmail()) == null){
+            return ResponseEntity.ok(authService.login(loginForm));
+        }
+        return ResponseEntity.ok(authService.doctorLogin(loginForm));
 
         /*
         boolean result = authService.login(loginForm);

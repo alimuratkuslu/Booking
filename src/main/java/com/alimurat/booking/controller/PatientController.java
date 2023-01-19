@@ -46,10 +46,17 @@ public class PatientController {
         return ResponseEntity.ok(patientService.editPatient(id, request));
     }
 
+
     @GetMapping("/doctor/{id}")
     public ResponseEntity<DoctorOfPatientDto> showDoctor(@PathVariable Integer id){
         return ResponseEntity.ok(patientService.showDoctor(id));
     }
+
+    @GetMapping("/details/{email}")
+    public ResponseEntity<Patient> getPatientByEmail(@PathVariable String email){
+        return ResponseEntity.ok(patientService.getPatientByEmail(email));
+    }
+
 
     @PatchMapping("/{id}")
     public ResponseEntity<Void> deactivatePatient(@PathVariable Integer id){

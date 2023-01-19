@@ -1,6 +1,6 @@
 package com.alimurat.booking.dto;
 
-import com.alimurat.booking.model.Patient;
+import com.alimurat.booking.model.Doctor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TokenResponseDto {
+public class DoctorTokenResponse {
 
     private String accessToken;
-    //private Patient response;
+    private Doctor response;
 }

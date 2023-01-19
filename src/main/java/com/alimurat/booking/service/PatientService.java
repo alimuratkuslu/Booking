@@ -4,6 +4,7 @@ import com.alimurat.booking.dto.DoctorOfPatientDto;
 import com.alimurat.booking.dto.PatientResponse;
 import com.alimurat.booking.dto.SavePatientRequest;
 import com.alimurat.booking.model.Patient;
+import com.alimurat.booking.model.Role;
 import com.alimurat.booking.repository.PatientRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.List;
 public class PatientService {
 
     private final PatientRepository patientRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     //private final static Logger logger = (Logger) LoggerFactory.getLogger(PatientService.class);
@@ -59,6 +61,7 @@ public class PatientService {
                         .email(request.getEmail())
                         .birthDate(request.getBirthDate())
                         .password(passwordEncoder.encode(request.getPassword()))
+                .role(Role.PATIENT)
                         .isActive(true)
                         .build();
         //passwordEncoder.encode(request.getPassword())
@@ -145,6 +148,7 @@ public class PatientService {
     }
 
     public Patient getPatientByEmail(String email){
+
         return patientRepository.findByEmail(email);
     }
 

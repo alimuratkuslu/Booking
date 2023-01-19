@@ -85,6 +85,12 @@ class PatientEdit extends Component {
                     </FormGroup>
                     <br/>
                     <FormGroup>
+                        <Label for="name">Password</Label>
+                        <Input type="password" name="password" id="password" value={item.password || ''}
+                               onChange={this.handleChange} autoComplete="name"/>
+                    </FormGroup>
+                    <br/>
+                    <FormGroup>
                         <Label for="status">Status</Label>
                         <DeactivatePatient patientId={item.id} />
                         <ActivatePatient patientId={item.id} />

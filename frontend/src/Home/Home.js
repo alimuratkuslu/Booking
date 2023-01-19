@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../App.js';
 import AppNavbar from '../AppNavbar.js';
 import './Home.css';
+import Footer from '../Footer';
 
 
 export default function Home(){
@@ -18,6 +19,7 @@ export default function Home(){
                 Our state-of-the-art facilities, cutting-edge technology and highly skilled staff ensure that you receive the best possible care.
 
                 Thank you for choosing our hospital, we look forward to providing you with the highest level of healthcare.</p>
+            <Footer />
         </div>
     )
 }
